@@ -15,12 +15,22 @@ public class printDanServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/html;charset=UTF-8");
+		
+		String inputedDan = request.getParameter("dan"); //TODO
+		String inputedLimit = request.getParameter("limit"); //TODO
 
-		response.getWriter().append("==8단==<br>");
+		if(inputedDan == null) { //TODO
+			inputedDan = "1";
+		}
+		if(inputedLimit == null) { //TODO
+			inputedLimit = "1";
+		}
 
-		int dan = 8;
+		int dan = Integer.parseInt(inputedDan); //TODO
+		int limit = Integer.parseInt(inputedLimit); //TODO
+		response.getWriter().append(String.format("==%d단==<br>", dan)); //TODO
 
-		for (int i = 1; i <= 9; i++) {
+		for (int i = 1; i <= limit; i++) {
 			response.getWriter().append(String.format("%d * %d = %d<br>", dan, i, dan * i));
 		}
 	}

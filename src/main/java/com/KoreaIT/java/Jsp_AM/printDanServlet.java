@@ -15,26 +15,29 @@ public class printDanServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/html;charset=UTF-8");
-		
-		String inputedDan = request.getParameter("dan"); //TODO
-		String inputedLimit = request.getParameter("limit"); //TODO
-		String inputedColor = request.getParameter("color"); //TODO
 
-		if(inputedDan == null) { //TODO
+		String inputedDan = request.getParameter("dan");
+		String inputedLimit = request.getParameter("limit");
+		String inputedColor = request.getParameter("color");
+
+		if (inputedDan == null) {
 			inputedDan = "1";
 		}
-		if(inputedLimit == null) { //TODO
+		if (inputedLimit == null) {
 			inputedLimit = "1";
 		}
+		if (inputedColor == null) {
+			inputedColor = "black";
+		}
 
+		int dan = Integer.parseInt(inputedDan);
+		int limit = Integer.parseInt(inputedLimit);
 
-		int dan = Integer.parseInt(inputedDan); //TODO
-		int limit = Integer.parseInt(inputedLimit); //TODO
-		response.getWriter().append(String.format("<div style=\"color:%s\";>==%d단==</div>", inputedColor, dan)); //TODO
-		
+		response.getWriter().append(String.format("<div style=\"color:%s\";>==%d단==</div>", inputedColor, dan));
+
 		for (int i = 1; i <= limit; i++) {
-			response.getWriter().append(String.format("<div style=\"color:%s\";>%d * %d = %d</div>", inputedColor, dan, i, dan * i)); //TODO
-													
+			response.getWriter().append(
+					String.format("<div style=\"color:%s\";>%d * %d = %d</div>", inputedColor, dan, i, dan * i));
 		}
 	}
 

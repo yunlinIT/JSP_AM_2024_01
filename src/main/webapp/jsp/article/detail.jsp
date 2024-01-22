@@ -13,6 +13,8 @@ Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("art
 </head>
 <body>
 
+<a href="/article/delete">게시물 삭제</a>
+
 	<h2>게시물 상세페이지</h2>
 
 	<div>

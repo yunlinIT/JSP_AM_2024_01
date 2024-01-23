@@ -47,6 +47,8 @@ public class ArticleListServlet extends HttpServlet {
 
 			int itemsInAPage = 10;
 			int limitFrom = (page - 1) * itemsInAPage;
+			
+			
 
 			SecSql sql = SecSql.from("SELECT COUNT(*) AS cnt");
 			sql.append("FROM article");

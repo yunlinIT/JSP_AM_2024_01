@@ -1,6 +1,13 @@
 <%@ page import="java.util.Map"%>
+<%@ page import="java.util.List"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%
+List<Map<String, Object>> memberRows = (List<Map<String, Object>>) request.getAttribute("memberRows");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,13 +19,13 @@
 	<div>
 		<a style="color: DeepPink" href="../home/main">메인으로 이동</a>
 	</div>
-	
+
 	<!-- 확인 취소 알림창 예시 -->
 	<!-- <a href="https://www.naver.com" onclick="if(confirm('진짜 이동 할거임???') == false) return false;"">naver</a> -->
 
 	<h2>회원가입</h2>
 
-	<!-- 아이디 중복체크 로직 -->
+	<!-- 공백 입력 안받는 로직 -->
 	<script type="text/javascript">
 		var JoinForm__submitDone = false;
 		function JoinForm__submit(form) {
@@ -36,7 +43,7 @@
 			console.log('form.loginPwConfirm.value : ' + loginPwConfirm);
 			console.log('form.name.value : ' + name);
 
-			if (loginId.length == 0) {
+			if (loginId.length == 0) 
 				alert('아이디를 입력해주세요');
 				form.loginId.focus();
 				return;
@@ -77,7 +84,29 @@
 		<div>
 			아이디 : <input autocomplete="off" type="text" placeholder="아이디를 입력해주세요"
 				name="loginId" />
-			<button type="button">중복확인</button>
+			<!-- 		<button type="button">중복확인</button> -->
+
+<!-- 			<button type="button" onclick="location.href='여기뭐써야해' ">중복확인</button> -->
+			<button onclick="alert(중복되는 아이디입니다)">클릭</button>
+
+
+			<%
+			for (Map<String, Object> memberRow : memberRows) {
+			%>
+			<%
+			if ("loginId" == memberRow.get("loginId")) {
+			%>
+
+			<%
+			//몰라 여기 뭐 써야대
+			%>
+			<%
+			break;
+			}
+			%>
+			<%
+			}
+			%>
 
 		</div>
 
@@ -103,6 +132,17 @@
 	</div>
 
 
+
+
+
+	<!-- 아이디 중복체크 -->
+
+	<%-- 	<% --%>
+	// for (Map
+	<String , Object> memberRow : memberRows) { <%-- 			%> --%> <%-- 	<% --%>
+	// if (loginId == memberRow.get("loginId")) { // alert('중복되는 아이디입니다');
+
+	// break; // } <%-- 				%> --%> <%-- 	<% --%> // } <%-- 			%> --%>
 </body>
 </html>
 

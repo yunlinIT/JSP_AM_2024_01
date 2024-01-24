@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import com.KoreaIT.java.Jsp_AM.config.Config;
+import com.KoreaIT.java.Jsp_AM.exception.SQLErrorException;
 import com.KoreaIT.java.Jsp_AM.util.DBUtil;
 import com.KoreaIT.java.Jsp_AM.util.SecSql;
 
@@ -30,10 +31,6 @@ public class ArticleModifyServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		String url = "jdbc:mysql://127.0.0.1:3306/JSP_AM?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull";
-		String user = "root";
-		String password = "";
-
 		Connection conn = null;
 
 		try {
@@ -52,6 +49,8 @@ public class ArticleModifyServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 			System.out.println("에러 : " + e);
+		} catch (SQLErrorException e) {
+			e.getOrigin().printStackTrace();
 		} finally {
 			try {
 				if (conn != null && !conn.isClosed()) {

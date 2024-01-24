@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.KoreaIT.java.Jsp_AM.config.Config;
+import com.KoreaIT.java.Jsp_AM.exception.SQLErrorException;
 import com.KoreaIT.java.Jsp_AM.util.DBUtil;
 import com.KoreaIT.java.Jsp_AM.util.SecSql;
 
@@ -34,32 +35,25 @@ public class MemberDoJoinServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(Config.getDbUrl(), Config.getDbUser(), Config.getDbPw());
 
-
 			String loginId = request.getParameter("loginId");
 			String loginPw = request.getParameter("loginPw");
-			String loginPwCofirm = request.getParameter("loginPwCofirm");
 			String name = request.getParameter("name");
 
 			SecSql sql = SecSql.from("INSERT INTO `member`");
 			sql.append("SET regDate = NOW(),");
 			sql.append("loginId = ?,", loginId);
 			sql.append("loginPw = ?,", loginPw);
-			sql.append("`name` = ?;", name);	
-			
-//			INSERT INTO `member`
-//			SET regDate = NOW(),
-//			loginId = 'test1',
-//			loginPw = 'test1',
-//			`name` = 'test1';
+			sql.append("`name` = ?;", name);
 
-		
 			int id = DBUtil.insert(conn, sql);
 
-			response.getWriter()
-					.append(String.format("<script>alert('%s님, 회원 가입이 완료되었습니다.'); location.replace('../article/list');</script>", name));
+			response.getWriter().append(String.format(
+					"<script>alert('%s님, 회원가입이 완료되었습니다.'); location.replace('../article/list');</script>", name));
 
 		} catch (SQLException e) {
 			System.out.println("에러 : " + e);
+		} catch (SQLErrorException e) {
+			e.getOrigin().printStackTrace();
 		} finally {
 			try {
 				if (conn != null && !conn.isClosed()) {

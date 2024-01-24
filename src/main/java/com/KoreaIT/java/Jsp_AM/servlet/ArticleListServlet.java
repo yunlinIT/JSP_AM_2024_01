@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.KoreaIT.java.Jsp_AM.config.Config;
+import com.KoreaIT.java.Jsp_AM.exception.SQLErrorException;
 import com.KoreaIT.java.Jsp_AM.util.DBUtil;
 import com.KoreaIT.java.Jsp_AM.util.SecSql;
 
@@ -31,11 +32,11 @@ public class ArticleListServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-
 		Connection conn = null;
 
 		try {
 			conn = DriverManager.getConnection(Config.getDbUrl(), Config.getDbUser(), Config.getDbPw());
+
 			int page = 1;
 
 			if (request.getParameter("page") != null && request.getParameter("page").length() != 0) {
@@ -68,6 +69,8 @@ public class ArticleListServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 			System.out.println("에러 : " + e);
+		} catch (SQLErrorException e) {
+			e.getOrigin().printStackTrace();
 		} finally {
 			try {
 				if (conn != null && !conn.isClosed()) {

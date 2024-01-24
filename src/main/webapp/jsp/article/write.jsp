@@ -11,7 +11,7 @@
 
 	<h2>게시물 작성</h2>
 
-	<form method="POST" action="doModify">
+	<form method="POST" action="doWrite">
 		<div>
 			제목 : <input type="text" placeholder="제목을 입력해주세요" name="title" />
 		</div>

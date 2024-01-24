@@ -143,12 +143,12 @@ body {
 			}
 
 			int pageSize_v2 = 10; //한 화면에 보여줄 페이지 갯수 -> 10개
-			int pageGroup = (int) Math.ceil((double) cPage / pageSize_v2); // 한번에 보여줄 페이지의 그룹
+			int pageGroup = (int) Math.ceil((double) cPage / pageSize_v2); // 한번에 보여줄 페이지의 그룹 // 1그룹->1페이지, 2그룹->2페이지
 			int from_v2 = ((pageGroup - 1) * pageSize_v2) + 1; // 한번에 보여줄 때의 첫번째 페이지 번호
 			int end_v2 = pageGroup * pageSize_v2; // 한번에 보여줄 때의 마지막 페이지 번호
 
-			if (pageGroup * pageSize_v2 > totalPage) {
-			end_v2 = totalPage;
+			if (pageGroup * pageSize_v2 > totalPage) { 
+			end_v2 = totalPage; // 마지막페이지 번호가 어쩌구저쩌구 
 			}
 
 			if (from_v2 < 1) {

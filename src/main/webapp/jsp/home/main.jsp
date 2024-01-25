@@ -10,13 +10,18 @@
 <body>
 
 	<h1>MAIN</h1>
-	
+
 	<ul>
 		<li><a href="../article/list">리스트로 이동</a></li>
-	</ul>	
+	</ul>
 	
 		<ul>
+		<li><a href="../member/login">회원 로그인</a></li>
+	</ul>
+	
+	
+	<ul>
 		<li><a href="../member/join">회원가입</a></li>
-	</ul>	
+	</ul>
 </body>
 </html>

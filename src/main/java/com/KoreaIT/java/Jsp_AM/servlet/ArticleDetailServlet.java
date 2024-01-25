@@ -36,14 +36,21 @@ public class ArticleDetailServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(Config.getDbUrl(), Config.getDbUser(), Config.getDbPw());
 			response.getWriter().append("연결 성공!");
+			
+			
 
 			int id = Integer.parseInt(request.getParameter("id"));
 
-			SecSql sql = SecSql.from("SELECT *");
-			sql.append("FROM article");
-			sql.append("WHERE id = ?;", id);
+			SecSql sql = SecSql.from("SELECT a.id, a.regDate, m.name, a.title, a.`body`");
+			sql.append("FROM `member` AS m");
+			sql.append("INNER JOIN article AS a");
+			sql.append("ON m.id = a.memberId");
+			sql.append("WHERE a.id = ?;", id);
+					
 
 			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
+			
+			System.out.println(articleRow);
 
 			request.setAttribute("articleRow", articleRow);
 			request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);

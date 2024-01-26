@@ -33,6 +33,7 @@ public class ArticleDetailServlet extends HttpServlet {
 		}
 
 		Connection conn = null;
+		
 
 		try {
 			conn = DriverManager.getConnection(Config.getDbUrl(), Config.getDbUser(), Config.getDbPw());

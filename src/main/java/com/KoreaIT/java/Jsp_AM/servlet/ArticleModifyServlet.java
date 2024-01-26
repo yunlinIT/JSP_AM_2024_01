@@ -23,18 +23,31 @@ public class ArticleModifyServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		response.setContentType("text/html;charset=UTF-8");
-		
-		
+
 		HttpSession session = request.getSession();
+
+		boolean isLogined = false;
+		int loginedMemberId = -1;
+		Map<String, Object> loginedMember = null;
+
+		if (session.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+			loginedMember = (Map<String, Object>) session.getAttribute("loginedMember");
+		}
+
+		request.setAttribute("isLogined", isLogined);
+		request.setAttribute("loginedMemberId", loginedMemberId);
+		request.setAttribute("loginedMember", loginedMember);
 
 		if (session.getAttribute("loginedMemberId") == null) {
 			response.getWriter().append(
 					String.format("<script>alert('로그인 후 이용해주세요'); location.replace('../member/login');</script>"));
 			return;
 		}
-		
-		
+
 		// DB연결
 		try {
 			Class.forName(Config.getDbDriverClassName());
@@ -44,7 +57,6 @@ public class ArticleModifyServlet extends HttpServlet {
 		}
 
 		Connection conn = null;
-		
 
 		try {
 			conn = DriverManager.getConnection(Config.getDbUrl(), Config.getDbUser(), Config.getDbPw());
@@ -56,17 +68,13 @@ public class ArticleModifyServlet extends HttpServlet {
 			sql.append("WHERE id = ?;", id);
 
 			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
-			
-			
-			
-			if (!session.getAttribute("loginedMemberId").equals(articleRow.get("memberId"))) {
+
+			if (loginedMemberId != (int) articleRow.get("memberId")) {
 				response.getWriter().append(
-						String.format("<script>alert('수정 권한이 없습니다'); location.replace('../article/list');</script>"));
+						String.format("<script>alert('해당 글에 대한 권한이 없습니다.'); location.replace('list');</script>"));
 				return;
 			}
-			
-			
-			
+
 			request.setAttribute("articleRow", articleRow);
 			request.getRequestDispatcher("/jsp/article/modify.jsp").forward(request, response);
 

@@ -1,5 +1,5 @@
 package com.KoreaIT.java.Jsp_AM.dao;
 
-public class ArticleListDao {
+public class ArticleDao {
 
 }
